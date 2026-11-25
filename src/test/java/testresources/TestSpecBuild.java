@@ -21,7 +21,7 @@ public class TestSpecBuild {
         if (requestSpec == null) {
             PrintStream log = new PrintStream(new FileOutputStream("logging.txt"));
             requestSpec = new RequestSpecBuilder().setBaseUri(getGlobalValue("baseUrl"))
-                    .addQueryParam("key", "qaclick123")
+                    .addQueryParam("key", trainingApiKey())
                     .addFilter(RequestLoggingFilter.logRequestTo(log))
                     .addFilter(ResponseLoggingFilter.logResponseTo(log))
                     .setContentType(ContentType.JSON)
@@ -52,4 +52,12 @@ public class TestSpecBuild {
         return jsonPath.getString(path);
     }
 
+
+	private static String trainingApiKey() {
+		String key = System.getenv("TRAINING_API_KEY");
+		if (key == null || key.trim().isEmpty()) {
+			throw new IllegalStateException("Set TRAINING_API_KEY before running the training API tests.");
+		}
+		return key;
+	}
 }

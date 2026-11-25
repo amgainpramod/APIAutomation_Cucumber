@@ -7,6 +7,6 @@ Feature: Application Login
 
   Scenario: Home page default login
     Given User is on NetBanking landing page
-    When User login to application with username "PraShi" and password "1234"
+    When User login to application with username "example-user" and password "example-password"
     Then Home page is populated
     And Cards are displayed is "false"
